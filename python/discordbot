@@ -1,0 +1,32 @@
+import discord
+from discord import app_commands
+from discord.ext import commands
+import json
+import datetime
+import os
+from discord import app_commands, Interaction, Embed
+
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
+
+TOKEN = "TOKEN"
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+
+@client.event
+async def on_ready():
+    print('ログインしました')
+
+    await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity(name='BETA版です'))
+    # スラッシュコマンドを同期
+    await tree.sync()
+
+
+
+
+client.run("TOKEN")
